@@ -22,7 +22,7 @@ def get_links():
     return source, destination
 
 
-def parser(source):
+def parser(source, destination):
     try:
         parsed = requests.get(
             f"https://en.wikipedia.org/w/api.php?action=query&prop=links&pllimit=max&format=json&titles={source}")
@@ -35,4 +35,6 @@ def parser(source):
     links = []
     for i in parsed:
         links.append(i['title'].replace(' ', '_'))
+        if links[-1] == destination:
+            return
     return links
